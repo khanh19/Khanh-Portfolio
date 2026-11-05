@@ -1,0 +1,137 @@
+.stack__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: clamp(48px, 6vw, 80px);
+  /* Fade the marquee edges into the background. */
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.marquee {
+  --duration: 50s;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+}
+
+.marquee__list {
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+  padding-right: 16px;
+  animation: marquee var(--duration) linear infinite;
+}
+
+.marquee--reverse .marquee__list {
+  animation-direction: reverse;
+}
+
+@media (hover: hover) {
+  .marquee:hover .marquee__list {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px 10px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+/* Logos sit on a white chip so every brand colour reads in both themes. */
+.marquee__logo {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(15 27 45 / 0.08);
+}
+
+.marquee__logo img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.marquee__item:hover {
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+.stack__certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.stack__cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.stack__cert-badge {
+  color: var(--accent-soft);
+}
+
+/* Without motion, show every tool as a wrapped cloud instead of a ticker. */
+@media (prefers-reduced-motion: reduce) {
+  .stack__rows {
+    mask-image: none;
+    padding-inline: var(--gutter);
+    max-width: var(--max-width);
+    margin-inline: auto;
+  }
+
+  .marquee {
+    overflow: visible;
+  }
+
+  .marquee__list {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    animation: none;
+  }
+
+  .marquee__list[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+@media (max-width: 559px) {
+  .marquee__item {
+    gap: 10px;
+    padding: 8px 18px 8px 8px;
+  }
+
+  .marquee__logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .marquee__logo img {
+    width: 18px;
+    height: 18px;
+  }
+}
