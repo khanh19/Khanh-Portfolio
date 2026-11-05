@@ -115,10 +115,11 @@
 .career__body li::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.75em;
-  width: 10px;
-  height: 1px;
+  left: 4px;
+  top: calc(0.75em - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: var(--accent);
 }
 
@@ -221,10 +222,11 @@
 .education__details li::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.75em;
-  width: 10px;
-  height: 1px;
+  left: 4px;
+  top: calc(0.75em - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: var(--accent-soft);
 }
 

@@ -87,6 +87,13 @@
   color: var(--accent-ink);
 }
 
+.social-icon {
+  flex-shrink: 0;
+  width: 0.85em;
+  height: 0.85em;
+  margin-right: 2px;
+}
+
 .contact__text {
   font-size: 1.1rem;
 }

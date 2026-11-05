@@ -113,9 +113,12 @@ export interface TechItem {
   readonly glow: string;
 }
 
+export type SocialIconName = "linkedin" | "github" | "devpost";
+
 export interface SocialLink {
   readonly label: string;
   readonly href: string;
+  readonly icon: SocialIconName;
 }
 
 export const profile = {
@@ -356,7 +359,7 @@ export const techStack: readonly TechItem[] = [
 export const certifications: readonly string[] = ["Microsoft Certified: Azure Fundamentals (AZ-900)"];
 
 export const socials: readonly SocialLink[] = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/quoc-khanh/" },
-  { label: "GitHub", href: "https://github.com/khanh19" },
-  { label: "Devpost", href: "https://devpost.com/khanh02092000" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/quoc-khanh/", icon: "linkedin" },
+  { label: "GitHub", href: "https://github.com/khanh19", icon: "github" },
+  { label: "Devpost", href: "https://devpost.com/khanh02092000", icon: "devpost" },
 ];
