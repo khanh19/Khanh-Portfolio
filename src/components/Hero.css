@@ -1,0 +1,222 @@
+.hero {
+  position: relative;
+  height: var(--vh);
+  min-height: 560px;
+  /* Clip sideways only, so the sky can fade into the next section softly. */
+  overflow-x: clip;
+}
+
+/* Layering: page sky (fixed, behind) < avatar stage (1) < hero copy and CTA (2). */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 32vw) 1fr;
+  grid-template-areas: "intro . info";
+  align-items: center;
+  padding-top: var(--header-h);
+  padding-bottom: 96px;
+}
+
+.hero__intro {
+  grid-area: intro;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.hero__hello {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.hero__hello-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+}
+
+.hero__name {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(3rem, min(7.4vw, 13.5vh), 7.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--text);
+}
+
+/* Accent ink: navy-blue by day, starlight gold by night. */
+.hero__name-line--accent {
+  color: var(--accent-deep);
+}
+
+.hero__info {
+  grid-area: info;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  max-width: 340px;
+  text-align: right;
+}
+
+/* Rolling word stacked over "Engineer" so word widths never leave a gap. */
+.hero__role {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, min(3.8vw, 7vh), 3.6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--text);
+}
+
+/* All words share one grid cell so the box sizes to the widest word. */
+.hero__role-words {
+  display: inline-grid;
+  justify-items: end;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.hero__role-word {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.hero__role-word:not(:first-child) {
+  visibility: hidden;
+}
+
+.hero__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.hero__rule {
+  width: 36px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-soft);
+}
+
+/* Soft ink rather than muted, so it stays well above 4.5:1 over the sky. */
+.hero__tagline {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+.hero__cta {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: clamp(28px, 6vh, 56px);
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text);
+  transition:
+    box-shadow 0.3s var(--ease-out),
+    translate 0.3s var(--ease-out);
+}
+
+.hero__cta svg {
+  color: var(--accent-ink);
+  transition: translate 0.3s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .hero__cta:hover {
+    translate: -50% -2px;
+  }
+
+  .hero__cta:hover svg {
+    translate: 4px 0;
+  }
+}
+
+/* Tablet & phone: name on top, avatar in the middle, role block at the bottom. */
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 640px;
+  }
+
+  .hero__content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "intro"
+      "."
+      "info";
+    align-items: start;
+    padding-top: calc(var(--header-h) + 8px);
+    padding-bottom: 0;
+  }
+
+  .hero__intro {
+    gap: 14px;
+  }
+
+  .hero__name {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 0.22em;
+    font-size: clamp(2.6rem, 11vw, 4.5rem);
+  }
+
+  .hero__info {
+    justify-self: stretch;
+    align-items: flex-start;
+    max-width: none;
+    gap: 10px;
+    text-align: left;
+    /* Full-bleed ivory backing so the copy stays legible over the avatar's torso. */
+    margin-inline: calc(-1 * var(--gutter));
+    /* Bottom padding reserves the CTA's spot, so the backing runs to the hero's edge. */
+    padding: 56px var(--gutter) 108px;
+    background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 92%, transparent) 48px);
+  }
+
+  .hero__role {
+    align-items: flex-start;
+    font-size: clamp(1.7rem, 8vw, 2.6rem);
+  }
+
+  .hero__role-words {
+    justify-items: start;
+  }
+
+  .hero__tagline {
+    max-width: 52ch;
+  }
+
+  .hero__cta {
+    bottom: 28px;
+  }
+}
