@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { headsetProgress } from "../../lib/headsetProgress";
-import { isWebGLAvailable } from "../avatar/createAvatarScene";
+import { isWebGLAvailable } from "../../lib/webgl";
 import { createHeadsetScene } from "./createHeadsetScene";
 
 /** Lazy-loaded host for the three.js headset (shares the three.js chunk with the avatar). */

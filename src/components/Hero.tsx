@@ -19,6 +19,8 @@ export default function Hero() {
         // Returning the tween lets SplitText re-sync it when a resize re-splits.
         SplitText.create(".hero__name-line", {
           type: "chars,lines",
+          // The h1 carries a plain-text copy; don't add aria-labels to these spans.
+          aria: "none",
           mask: "lines",
           autoSplit: true,
           onSplit: (split) =>
@@ -33,7 +35,7 @@ export default function Hero() {
 
         // Rolling role words: each word's letters exit upward as the next rise in.
         const words = gsap.utils.toArray<HTMLElement>(".hero__role-word");
-        const splits = words.map((word) => SplitText.create(word, { type: "chars" }));
+        const splits = words.map((word) => SplitText.create(word, { type: "chars", aria: "none" }));
         gsap.set(words, { autoAlpha: 1 });
         splits.forEach((split, i) => gsap.set(split.chars, { yPercent: i === 0 ? 0 : 110 }));
 
@@ -82,8 +84,16 @@ export default function Hero() {
             Hello, I&apos;m
           </p>
           <h1 id="hero-title" className="hero__name">
-            <span className="hero__name-line">{profile.firstName}</span>
-            <span className="hero__name-line hero__name-line--accent">{profile.lastName}.</span>
+            {/* Spoken once as plain text; the animated letters are decorative. */}
+            <span className="sr-only">
+              {profile.firstName} {profile.lastName}
+            </span>
+            <span className="hero__name-line" aria-hidden="true">
+              {profile.firstName}
+            </span>
+            <span className="hero__name-line hero__name-line--accent" aria-hidden="true">
+              {profile.lastName}.
+            </span>
           </h1>
         </div>
 

@@ -11,16 +11,21 @@ import Sky from "./components/Sky";
 import TechStack from "./components/TechStack";
 import Work from "./components/Work";
 import { ScrollTrigger } from "./lib/gsap";
-import { startSmoothScroll } from "./lib/smoothScroll";
+import { scrollToSection, startSmoothScroll } from "./lib/smoothScroll";
 
 export default function App() {
   useEffect(() => startSmoothScroll(), []);
 
   // Web fonts change text metrics; re-measure scroll positions once they land.
+  // Then honour a #section in the URL: the browser's own jump happens before
+  // pinned sections are laid out, so it lands in the wrong place.
   useEffect(() => {
     let active = true;
     void document.fonts.ready.then(() => {
-      if (active) ScrollTrigger.refresh();
+      if (!active) return;
+      ScrollTrigger.refresh();
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (id && document.getElementById(id)) scrollToSection(id, { immediate: true });
     });
     return () => {
       active = false;

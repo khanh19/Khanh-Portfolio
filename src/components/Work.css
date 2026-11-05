@@ -37,8 +37,13 @@
 }
 
 .work__dots,
-.work__stage {
+.work__stage,
+.work__lens {
   display: none;
+}
+
+.work__list {
+  margin-top: clamp(32px, 4vw, 56px);
 }
 
 .work__track {
@@ -277,6 +282,7 @@
 
   /* Inside the lens: always dark (it's the inside of a headset), with its own ink. */
   .work__lens {
+    display: block;
     --text: #eef2fa;
     --text-soft: #d3dbea;
     --muted: #a9b4c9;
@@ -453,5 +459,80 @@
     height: 1px;
     background: linear-gradient(to right, transparent, rgb(238 242 250 / 0.18), transparent);
     pointer-events: none;
+  }
+}
+
+/* ───────── Phones, tablets & short screens: headset intro only ─────────
+   The pinned stage shows the headset turning and zooming into a lens, then
+   fades open; the normal card list (.work__list) follows below.
+   Keep in sync with PHONE_INTRO in Work.tsx. */
+@media (prefers-reduced-motion: no-preference) and (max-width: 1024px),
+  (prefers-reduced-motion: no-preference) and (max-height: 699px) {
+  .work__pin {
+    position: relative;
+    height: var(--vh);
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .work__stage {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  .work__headset {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s var(--ease-out);
+  }
+
+  .work__headset.is-ready {
+    opacity: 1;
+  }
+
+  .work__headset canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .work__intro {
+    position: absolute;
+    inset: calc(var(--header-h) + 3vh) 0 auto;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .work__skip {
+    pointer-events: auto;
+  }
+
+  /* The dark "inside the lens" beat: purely visual, never blocks taps. */
+  .work__lens {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    opacity: 0;
+    background: var(--lens-bg);
+    pointer-events: none;
+  }
+
+  /* The list overlaps the end of the pinned stage: it rises over the emptied
+     stage and comes to rest just under the returning heading. Its overlap
+     (~70% of the screen) matches PHONE_LIST_RISE in Work.tsx. */
+  .work__list {
+    --intro-room: calc(var(--header-h) + 3vh + 150px);
+    position: relative;
+    z-index: 4;
+    margin-top: calc(var(--intro-room) - var(--vh));
+    padding-bottom: clamp(48px, 10vw, 96px);
   }
 }

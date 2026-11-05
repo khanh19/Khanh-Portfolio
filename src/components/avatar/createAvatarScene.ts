@@ -24,6 +24,7 @@ import {
   type Object3D,
 } from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { createArmChain, solveArm, type ArmChain } from "./armIK";
 import { createDesk, type Desk } from "./desk";
@@ -117,15 +118,6 @@ const NIGHT: LightPreset = {
 };
 /** How quickly lighting follows a theme switch (per second). */
 const THEME_EASE = 3;
-
-export function isWebGLAvailable(): boolean {
-  try {
-    const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
-  } catch {
-    return false;
-  }
-}
 
 function disposeMaterial(material: Material): void {
   for (const value of Object.values(material)) {
@@ -493,7 +485,8 @@ export function createAvatarScene(container: HTMLElement, options: AvatarSceneOp
   }
   document.addEventListener("visibilitychange", onVisibilityChange);
 
-  new GLTFLoader().load(
+  // The model's geometry and animation are meshopt-compressed (≈55% smaller download).
+  new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(
     options.modelUrl,
     (gltf) => {
       if (state.disposed) {
