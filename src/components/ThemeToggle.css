@@ -1,0 +1,29 @@
+.theme-toggle {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    transform 0.4s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.theme-toggle__icon {
+  transition: rotate 0.6s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .theme-toggle:hover {
+    color: var(--accent-ink);
+  }
+
+  .theme-toggle:hover .theme-toggle__icon {
+    rotate: 25deg;
+  }
+}
