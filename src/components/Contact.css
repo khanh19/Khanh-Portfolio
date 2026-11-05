@@ -1,0 +1,126 @@
+.contact {
+  padding-bottom: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.contact__title {
+  max-width: 14ch;
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  margin-top: clamp(48px, 6vw, 88px);
+}
+
+.contact__block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.contact__label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact__email {
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition:
+    background-size 0.5s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.contact__email:hover {
+  color: var(--accent-ink);
+  background-size: 100% 1px;
+}
+
+.contact__copy {
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    border-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.contact__copy:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.contact__socials {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact__social {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: color 0.3s var(--ease-out);
+}
+
+.contact__social:hover {
+  color: var(--accent-ink);
+}
+
+.contact__text {
+  font-size: 1.1rem;
+}
+
+.contact__text--muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.contact__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: clamp(80px, 10vw, 140px);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+
+@media (max-width: 1024px) {
+  .contact__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact__block:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 479px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
