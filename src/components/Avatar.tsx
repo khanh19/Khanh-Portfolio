@@ -5,7 +5,8 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 import { avatarProgress } from "../lib/avatarProgress";
 import { getTheme, useTheme } from "../lib/theme";
 import { FINE_POINTER, REDUCED_MOTION } from "../lib/gsap";
-import { createAvatarScene, isWebGLAvailable, type AvatarScene } from "./avatar/createAvatarScene";
+import { isWebGLAvailable } from "../lib/webgl";
+import { createAvatarScene, type AvatarScene } from "./avatar/createAvatarScene";
 import "./Avatar.css";
 
 type AvatarStatus = "loading" | "ready" | "fallback";

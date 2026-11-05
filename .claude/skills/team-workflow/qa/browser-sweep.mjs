@@ -18,9 +18,10 @@ const viewports = [
   { name: "short", viewport: { width: 1100, height: 640 } },
   { name: "desktop", viewport: { width: 1440, height: 900 } },
   { name: "reduced", viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" },
-  // Night theme: the site follows the OS setting until the visitor toggles.
-  { name: "dark", viewport: { width: 1440, height: 900 }, colorScheme: "dark" },
-  { name: "dark-mobile", viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true, colorScheme: "dark" },
+  // Night theme: light is the default, so night is set the way a visitor's
+  // saved toggle choice would set it.
+  { name: "dark", viewport: { width: 1440, height: 900 }, theme: "dark" },
+  { name: "dark-mobile", viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true, theme: "dark" },
 ];
 
 // Elements allowed to extend past the viewport (marquees, pinned tracks, and
@@ -31,8 +32,9 @@ const browser = await chromium.launch({ executablePath });
 let failed = false;
 
 for (const config of viewports) {
-  const { name, ...contextOptions } = config;
+  const { name, theme, ...contextOptions } = config;
   const context = await browser.newContext(contextOptions);
+  if (theme) await context.addInitScript((t) => localStorage.setItem("kp-theme", t), theme);
   const page = await context.newPage();
   const errors = [];
   page.on("console", (msg) => {

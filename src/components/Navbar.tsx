@@ -74,12 +74,13 @@ export default function Navbar() {
       className={`nav${isScrolled ? " nav--scrolled" : ""}${isOpen ? " nav--open" : ""}`}
     >
       <div className="nav__inner container">
-        <a className="nav__logo" href="#top" onClick={(e) => handleNavigate(e, "top")} aria-label={`${profile.firstName} ${profile.lastName}, back to top`}>
+        <a className="nav__logo" href="#top" onClick={(e) => handleNavigate(e, "top")}>
           <span className="nav__mark" aria-hidden="true">
             KP
           </span>
-          <span className="nav__name" aria-hidden="true">
+          <span className="nav__name">
             {profile.firstName} {profile.lastName}
+            <span className="sr-only">, back to top</span>
           </span>
         </a>
 

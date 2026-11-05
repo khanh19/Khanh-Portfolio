@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khanh-portfolio-seven.vercel.app/sitemap.xml

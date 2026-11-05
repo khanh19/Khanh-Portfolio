@@ -41,6 +41,8 @@ export const LENS_COLOR = "#07090f";
 
 const FOV = 30;
 const CAMERA_DISTANCE = 6.2;
+/** Width (scene units) kept in view so the whole headset fits portrait phones too. */
+const FIT_WIDTH = 2.7;
 /** Side three-quarter view → seen from behind. */
 const START_YAW = -1.15;
 const END_YAW = Math.PI;
@@ -198,6 +200,9 @@ export function createHeadsetScene(
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    // Back the camera off on narrow (portrait) screens so the headset still fits.
+    const fitDistance = FIT_WIDTH / (2 * Math.tan(MathUtils.degToRad(FOV / 2)) * camera.aspect);
+    cameraStart.z = Math.max(CAMERA_DISTANCE, fitDistance);
   };
 
   const render = (timestamp?: number): void => {
