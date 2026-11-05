@@ -1,0 +1,275 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: var(--text);
+  height: var(--header-h);
+  padding-top: 0;
+  transition: padding-top 0.5s var(--ease-out);
+}
+
+.nav__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition:
+    max-width 0.6s var(--ease-out),
+    height 0.5s var(--ease-out),
+    padding 0.5s var(--ease-out),
+    background-color 0.5s var(--ease-out),
+    box-shadow 0.5s var(--ease-out),
+    border-color 0.5s var(--ease-out);
+}
+
+/* Scrolled: the bar condenses into a floating liquid-glass pill. */
+.nav--scrolled {
+  padding-top: 10px;
+}
+
+.nav--scrolled .nav__inner {
+  max-width: min(1180px, calc(100% - 2 * var(--gutter)));
+  height: 58px;
+  padding-inline: 10px 10px;
+  background: var(--nav-glass);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.nav__actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav__logo {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav__mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.14);
+  color: var(--bg-solid);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav__name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.nav__menu {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Rolling label: the text slides up and a copy rises from below. */
+.nav__link-label {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.nav__link-label::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  color: var(--accent-ink);
+}
+
+.nav__link-label,
+.nav__link-label::after {
+  transition: transform 0.45s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .nav__link:hover .nav__link-label {
+    transform: translateY(-100%);
+  }
+  .nav__link:hover .nav__link-label::after {
+    transform: translateY(0);
+  }
+}
+
+.nav__cta {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.nav__cta-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+
+.nav__cta:hover {
+  background-color: var(--text);
+  color: var(--bg);
+}
+
+.nav__toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .nav__cta {
+    display: none;
+  }
+
+  /* Logo · theme toggle · menu button. */
+  .nav__actions {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .nav__inner > nav {
+    order: 3;
+  }
+
+  .nav__toggle {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav__toggle-bar {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .nav--open .nav__toggle-bar--top {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+
+  .nav--open .nav__toggle-bar--bottom {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+
+  .nav__menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding: var(--header-h) var(--gutter) 48px;
+    background: var(--bg);
+    clip-path: circle(0 at calc(100% - var(--gutter) - 22px) calc(var(--header-h) / 2));
+    visibility: hidden;
+    transition:
+      clip-path 0.7s var(--ease-out),
+      visibility 0s linear 0.7s;
+  }
+
+  .nav--open .nav__menu {
+    clip-path: circle(150% at calc(100% - var(--gutter) - 22px) calc(var(--header-h) / 2));
+    visibility: visible;
+    transition:
+      clip-path 0.7s var(--ease-out),
+      visibility 0s;
+  }
+
+  .nav__menu li {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.5s var(--ease-out),
+      transform 0.5s var(--ease-out);
+  }
+
+  .nav--open .nav__menu li {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(0.15s + var(--i) * 0.06s);
+  }
+
+  .nav__link {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    font-weight: 600;
+    gap: 14px;
+  }
+
+  .nav__link-index {
+    font-size: 0.9rem;
+  }
+}
+
+/* backdrop-filter creates a containing block that would trap the fixed menu,
+   so the glass pill switches off while the mobile menu is open. */
+.nav--open .nav__inner {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Inside the Work section's dark lens view: night ink and glass, whatever the theme. */
+:root.is-immersive .nav {
+  --text: #eef2fa;
+  --text-soft: #d3dbea;
+  --accent-ink: #f1cf7c;
+  --accent-soft: #e5bd62;
+  --bg-solid: #18203d;
+  --glass-bg: linear-gradient(135deg, rgb(70 84 140 / 0.38), rgb(20 26 52 / 0.3));
+  --nav-glass: linear-gradient(135deg, rgb(38 48 88 / 0.86), rgb(20 26 52 / 0.78));
+  --glass-border: rgb(255 255 255 / 0.16);
+  --glass-shadow: 0 10px 34px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.14);
+}

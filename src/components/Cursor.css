@@ -1,0 +1,27 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: difference;
+  transition:
+    opacity 0.3s var(--ease-out),
+    scale 0.4s var(--ease-out),
+    background-color 0.4s var(--ease-out);
+}
+
+.cursor.is-visible {
+  opacity: 1;
+}
+
+.cursor.is-hovering {
+  scale: 1.8;
+  background-color: var(--accent-tint);
+}

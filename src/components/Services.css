@@ -1,0 +1,208 @@
+.services__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+/* Dashed frame with solid corner brackets. */
+.service {
+  position: relative;
+  border: 1px dashed var(--line);
+  background: var(--card);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    border-color 0.4s var(--ease-out),
+    background-color 0.4s var(--ease-out);
+}
+
+.service.is-open {
+  border-color: var(--accent-soft);
+  background: var(--card-strong);
+  box-shadow: var(--shadow);
+}
+
+.service__corners,
+.service__corners::before,
+.service__corners::after,
+.service::before,
+.service::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--muted);
+  pointer-events: none;
+  transition: border-color 0.4s var(--ease-out);
+}
+
+.service::before {
+  top: -1px;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.service::after {
+  top: -1px;
+  right: -1px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.service__corners {
+  inset: auto 0 0 0;
+  width: auto;
+  height: 0;
+  border: 0;
+}
+
+.service__corners::before {
+  bottom: -1px;
+  left: -1px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+.service__corners::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+.service.is-open::before,
+.service.is-open::after,
+.service.is-open .service__corners::before,
+.service.is-open .service__corners::after {
+  border-color: var(--accent);
+}
+
+.service__heading {
+  margin: 0;
+  font-size: inherit;
+}
+
+.service__toggle {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "title chevron"
+    "subtitle chevron";
+  align-items: center;
+  column-gap: 16px;
+  row-gap: 6px;
+  width: 100%;
+  padding: clamp(20px, 2.4vw, 28px) clamp(20px, 2.6vw, 36px);
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.service__title {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.service__subtitle {
+  grid-area: subtitle;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.service__chevron {
+  grid-area: chevron;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  transition:
+    rotate 0.4s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.service.is-open .service__chevron {
+  rotate: 180deg;
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+@media (hover: hover) {
+  .service__toggle:hover .service__chevron {
+    color: var(--accent-ink);
+    border-color: var(--accent);
+  }
+}
+
+/* Smooth height animation without measuring: 0fr ↔ 1fr. */
+.service__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease-out);
+}
+
+.service.is-open .service__panel {
+  grid-template-rows: 1fr;
+}
+
+.service__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding-inline: clamp(20px, 2.6vw, 36px);
+}
+
+.service.is-open .service__panel-inner {
+  padding-bottom: clamp(20px, 2.4vw, 28px);
+}
+
+.service__summary {
+  color: var(--text);
+  max-width: 56ch;
+}
+
+.service__tags-label {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.service__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Desk scene: content on the right half while the avatar codes on the left.
+   Keep this query in sync with DESKTOP + MOTION_OK in src/lib/gsap.ts. */
+@media (min-width: 1025px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .services {
+    min-height: var(--vh);
+    display: flex;
+    align-items: center;
+  }
+
+  .services__inner {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 1fr);
+  }
+
+  .services__content {
+    grid-column: 2;
+  }
+
+  .services .section-title {
+    font-size: clamp(2.5rem, 4.6vw, 4.5rem);
+  }
+}

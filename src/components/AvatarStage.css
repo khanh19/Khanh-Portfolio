@@ -1,0 +1,60 @@
+/* Default: the avatar lives in the hero and scrolls away with it. */
+.avatar-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: var(--vh);
+  min-height: 560px;
+  pointer-events: none;
+}
+
+.avatar-stage__frame {
+  --avatar-top-inset: 0px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(1000px, 72vw);
+  height: calc(100% - var(--header-h));
+  translate: -50% 0;
+  /* Fade the torso into the page instead of a hard crop. */
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 98%);
+}
+
+@media (max-width: 1024px) {
+  .avatar-stage {
+    min-height: 620px;
+  }
+
+  .avatar-stage__frame {
+    left: 0;
+    width: 100%;
+    height: 80%;
+    translate: none;
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 96%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 96%);
+  }
+}
+
+/* Desk scene: full-viewport and fixed while the hero hands over to "What I do".
+   Keep this query in sync with DESKTOP + MOTION_OK in src/lib/gsap.ts. */
+@media (min-width: 1025px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .avatar-stage {
+    position: fixed;
+    inset: 0;
+    height: auto;
+    min-height: 0;
+  }
+
+  .avatar-stage__frame {
+    --avatar-top-inset: var(--header-h);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    translate: none;
+    mask-image: linear-gradient(to bottom, #000 78%, transparent 99%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 99%);
+  }
+}

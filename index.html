@@ -2,12 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Khanh Pham — Software Engineer</title>
+    <meta
+      name="description"
+      content="Khanh Pham is a software engineer building backend platforms, cloud infrastructure, and apps — formerly at Domino's, now pursuing an M.Eng in Applied AI & ML at Virginia Tech."
+    />
+    <meta name="theme-color" content="#cfe0f2" />
+    <!-- Set the theme before first paint (stored choice, else the OS setting) to avoid a flash. -->
+    <script>
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem("kp-theme"); } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+        // Keep in sync with THEME_COLORS in src/lib/theme.ts.
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#141a34" : "#cfe0f2");
+      })();
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Khanh Pham — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Backend, platform, and cloud engineer. Builder of Lô!, MediCall, and FoodieOnRoad."
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>khanh-portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..600;1,8..60,300..500&display=swap"
+    />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <noscript>
+      <p style="padding: 24px; color: #0f1b2d; background: #cfe0f2; font-family: sans-serif">
+        Khanh Pham — Software Engineer. Contact: khanh02092000@gmail.com ·
+        <a style="color: #23508f" href="https://www.linkedin.com/in/quoc-khanh/">LinkedIn</a>
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
