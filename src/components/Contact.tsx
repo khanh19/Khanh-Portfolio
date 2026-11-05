@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { profile, socials } from "../data/portfolio";
 import { useSectionReveal } from "../hooks/useSectionReveal";
+import SocialIcon from "./SocialIcon";
 import "./Contact.css";
 
 type CopyState = "idle" | "copied" | "failed";
@@ -59,8 +60,8 @@ export default function Contact() {
               {socials.map((social) => (
                 <li key={social.href}>
                   <a className="contact__social" href={social.href} target="_blank" rel="noopener noreferrer">
+                    <SocialIcon name={social.icon} />
                     <span>{social.label}</span>
-                    <span aria-hidden="true">↗</span>
                     <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </li>
