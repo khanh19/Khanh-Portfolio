@@ -58,6 +58,13 @@
   color: var(--text);
 }
 
+/* SplitText wraps each letter in an inline-block, and browsers may break between
+   those, so a name wider than its column would stack one letter per line. Keep
+   each name on one line; on wide screens it may run into the empty gap instead. */
+.hero__name-line {
+  white-space: nowrap;
+}
+
 /* Accent ink: navy-blue by day, starlight gold by night. */
 .hero__name-line--accent {
   color: var(--accent-deep);
